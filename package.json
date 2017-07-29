@@ -15,6 +15,7 @@
   "dependencies": {
     "@google/maps": "^0.4.3",
     "csv-to-json": "^0.1.2",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "node-telegram-bot-api": "^0.27.1"
   }
 }
