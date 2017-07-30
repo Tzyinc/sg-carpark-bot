@@ -16,6 +16,9 @@ bot.on('message', (msg) => {
     if (msg.text.toLowerCase().indexOf("/test") === 0) {
       handleTest(msg);
     }
+    if (msg.text.toLowerCase().indexOf("/help") === 0) {
+      handleHelp(msg);
+    }
   }
   if(msg.location){
     getLocation(msg, n_nearest);
@@ -81,7 +84,8 @@ function handleInfo(msg){
   toSend += "Data of exactly *";
   toSend += rates.length;
   toSend += "* carparks have been collated from mytransport.sg datamall. \n \n"
-  toSend += "Developed for public use by *Ten Zhi-Yang*"
+  toSend += "Developed for public use by *Ten Zhi-Yang* \n\n"
+  toSend += "any bugs, missing carparks or suggestions? submit an issue or pull request on my [github!](https://github.com/Tzyinc/sg-carpark-bot)"
   bot.sendMessage(msg.chat.id,toSend,{parse_mode : "Markdown"});
 }
 
@@ -90,4 +94,8 @@ function handleTest(msg){
   for (var i=0; i< rates.length; i++){
     //console.log(i, rates[i].CarPark)
   }
+}
+
+function handleHelp(msg){
+  bot.sendPhoto(msg.chat.id,"images/helpimage.png" );
 }
