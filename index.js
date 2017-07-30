@@ -21,6 +21,7 @@ bot.on('message', (msg) => {
     }
   }
   if(msg.location){
+    //console.log(msg)
     getLocation(msg, n_nearest);
   }
 });
@@ -42,32 +43,33 @@ function getLocation(msg, n){
       topn.pop();
     }
   }
-  var toSend = "*The ";
+  //console.log(topn);
+  var toSend = "<b>The ";
   toSend += n;
-  toSend += " nearest carparks are: *\n";
+  toSend += " nearest carparks are: </b>\n";
   for(var i=0; i<topn.length; i++) {
-    toSend += "*";
+    toSend += "<b>";
     toSend += topn[i].rate.CarPark;
-    toSend += "*";
-    toSend += "\n`Weekdays: `\n";
+    toSend += "</b>";
+    toSend += "\n<code>Weekdays: </code>\n";
     toSend += topn[i].rate.WeekDays_Rate_1;
     if (topn[i].rate.WeekDays_Rate_2 != "-") {
       toSend += "\n"
       toSend += topn[i].rate.WeekDays_Rate_2;
     }
     if (topn[i].rate.Saturday_Rate!= "-") {
-      toSend += "\n`Saturdays: `\n";
+      toSend += "\n<code>Saturdays: </code>\n";
       toSend += topn[i].rate.Saturday_Rate;
     }
     if (topn[i].rate.Sunday_PublicHoliday_Rate!= "-") {
-      toSend += "\n`Sun and PH: `\n";
+      toSend += "\n<code>Sun and PH: </code>\n";
       toSend += topn[i].rate.Sunday_PublicHoliday_Rate;
     }
     toSend += "\n\n"
     //"WeekDays_Rate_1":"Daily: $1.30 / 30 Mins","WeekDays_Rate_2":"-","Saturday_Rate":"-","Sunday_PublicHoliday_Rate":"-"
   }
 
-  bot.sendMessage(msg.chat.id,toSend,{parse_mode : "Markdown"});
+  bot.sendMessage(msg.chat.id,toSend,{parse_mode : "HTML"});
 }
 
 function handleStart(msg){
