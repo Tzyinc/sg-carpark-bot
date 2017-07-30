@@ -25,7 +25,6 @@ bot.on('message', (msg) => {
   }
 });
 function getLocation(msg, n){
-  bot.sendMessage(msg.chat.id,"Calculating...");
   var userLat = msg.location.latitude
   var userLng = msg.location.longitude
   var topn = [];
