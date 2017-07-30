@@ -63,7 +63,7 @@ function getLocation(msg, n){
       toSend += "\n`Sun and PH: `\n";
       toSend += topn[i].rate.Sunday_PublicHoliday_Rate;
     }
-    toSend += "\n"
+    toSend += "\n\n"
     //"WeekDays_Rate_1":"Daily: $1.30 / 30 Mins","WeekDays_Rate_2":"-","Saturday_Rate":"-","Sunday_PublicHoliday_Rate":"-"
   }
 
