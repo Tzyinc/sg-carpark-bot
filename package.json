@@ -4,7 +4,8 @@
   "description": "a telegram bot which retrieve a location and returns capark rates of nearby carparks",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node index.js",
+    "start" : "node index.js"
   },
   "keywords": [
     "telegram",
