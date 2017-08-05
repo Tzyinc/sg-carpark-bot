@@ -69,7 +69,7 @@ function writeToFile(carparks){
   };
   c2j.writeJsonToFile(writeObj, writeCallback);
 
-  j2c(carparks, outputFileName)
+  j2c(uniqueCarparks, outputFileName)
     .then(() => {
       console.log("CSV Success");
     })
