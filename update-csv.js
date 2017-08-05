@@ -1,4 +1,5 @@
 var c2j = require('csv-to-json');
+var j2c = require('json-to-csv');
 var fs = require("fs");
 var apiKeys = JSON.parse(fs.readFileSync('apiKeys.json', 'utf8'));
 var gMaps = require('@google/maps').createClient({
@@ -6,6 +7,7 @@ var gMaps = require('@google/maps').createClient({
   Promise: Promise // 'Promise' is the native constructor.
 });
 var toSleep = 50;
+const outputFileName = 'formatted.csv';
 
 var fileObj = {
     filename: 'CarParkRates.csv'
@@ -51,6 +53,7 @@ function findCoordViaMap(carparks){
 }
 
 function writeToFile(carparks){
+  //write to JSON file (to be deprecated)
   var writeObj = {
     filename: "rates.json",
     json: arrUnique(carparks)
@@ -58,19 +61,29 @@ function writeToFile(carparks){
 
   var writeCallback = function(err) {
       if(err != 'null'){
-        console.log("success!")
+        console.log("JSON success!")
       } else {
         console.log(err);
       }
   };
   c2j.writeJsonToFile(writeObj, writeCallback);
+
+  j2c(carparks, outputFileName)
+    .then(() => {
+      console.log("CSV Success");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  //write to CSV
 }
 
 function getCarparkJson(carpark, result) {
   if (result.json.results.length>0){
     return {
       CarPark: carpark.CarPark,
-      Category: carpark.Category,
+      //category causes duplication issues
+      //Category: carpark.Category,
       Address: result.json.results[0].formatted_address,
       Location_Lat: result.json.results[0].geometry.location.lat,
       Location_Lng: result.json.results[0].geometry.location.lng,
@@ -78,6 +91,7 @@ function getCarparkJson(carpark, result) {
       WeekDays_Rate_2: carpark.WeekDays_Rate_2,
       Saturday_Rate: carpark.Saturday_Rate,
       Sunday_PublicHoliday_Rate: carpark.Sunday_PublicHoliday_Rate,
+      Lot_Avail_ID: "-"
     };
   }else{
     console.log(result);

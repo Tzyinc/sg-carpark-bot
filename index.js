@@ -1,6 +1,8 @@
 var fs = require("fs");
 var apiKeys = JSON.parse(fs.readFileSync('apiKeys.json', 'utf8'));
 var rates = JSON.parse(fs.readFileSync('rates.json', 'utf8'));
+var lotModule = require('./lotAvailability.js');
+
 var TelegramBot = require('node-telegram-bot-api'),
   bot = new TelegramBot(apiKeys.telegramKey, { polling: true });
 var n_nearest = 5;
@@ -91,10 +93,7 @@ function handleInfo(msg){
 }
 
 function handleTest(msg){
-  var toSend = "";
-  for (var i=0; i< rates.length; i++){
-    //console.log(i, rates[i].CarPark)
-  }
+  lotModule.test();
 }
 
 function handleHelp(msg){
