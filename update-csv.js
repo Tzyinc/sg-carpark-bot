@@ -54,9 +54,10 @@ function findCoordViaMap(carparks){
 
 function writeToFile(carparks){
   //write to JSON file (to be deprecated)
+  var uniqueCarparks = arrUnique(carparks);
   var writeObj = {
     filename: "rates.json",
-    json: arrUnique(carparks)
+    json: uniqueCarparks
   };
 
   var writeCallback = function(err) {
@@ -73,6 +74,7 @@ function writeToFile(carparks){
       console.log("CSV Success");
     })
     .catch(err => {
+      console.log("CSV ERROR");
       console.log(err);
     });
   //write to CSV

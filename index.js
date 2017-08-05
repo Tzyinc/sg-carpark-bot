@@ -1,7 +1,10 @@
 var fs = require("fs");
+var c2j = require('csv-to-json');
 var apiKeys = JSON.parse(fs.readFileSync('apiKeys.json', 'utf8'));
-var rates = JSON.parse(fs.readFileSync('rates.json', 'utf8'));
+//var rates = JSON.parse(fs.readFileSync('rates.json', 'utf8'));
 var lotModule = require('./lotAvailability.js');
+var rates = [];
+initRates('formatted.csv');
 
 var TelegramBot = require('node-telegram-bot-api'),
   bot = new TelegramBot(apiKeys.telegramKey, { polling: true });
@@ -99,3 +102,29 @@ function handleTest(msg){
 function handleHelp(msg){
   bot.sendPhoto(msg.chat.id,"images/helpimage.png" );
 }
+
+function initRates(filename){
+  var fileObj = {
+      filename: filename
+  };
+  var parseCallback = function(err, json) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log("csv success!")
+      //need to remove quotes from results
+      json =  json.map((each)=>{
+        var newStr = JSON.stringify(each);
+        return JSON.parse(newStr.replaceAll("\\\"",""));
+      });
+      rates = json;
+      //console.log(rates[0]);
+    }
+  }
+  c2j.parse(fileObj, parseCallback)
+}
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
