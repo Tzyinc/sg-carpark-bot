@@ -39,6 +39,7 @@ function startLoop () {
 // requires the multiple ids to be split by spaces
 function getLotAvail (reqID) {
   // console.log(reqID)
+  var totalLotsAvail = 0
   var reqIDs = reqID.split(' ')
   for (var i = 0; i < reqIDs.length; i++) {
     var carparkID = reqIDs[i]
@@ -48,10 +49,11 @@ function getLotAvail (reqID) {
       // one is a string one is an int
       if (lotAvailData.CarParkID == carparkID) { // eslint-disable-line
         // console.log(lotAvailData)
-        return lotAvailData.Lots
+        totalLotsAvail += lotAvailData.Lots
       }
     }
   }
+  return totalLotsAvail
 }
 
 module.exports = {
