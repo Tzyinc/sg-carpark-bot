@@ -1,6 +1,8 @@
 # sg-carpark-bot
 Telegram bot for sg carpark rates and lot availability. This bot will be developed for high user loads in mind, and therefore should avoid persisting user data (for things like user settings) and should as much as possible run as a stand alone, and should not fail if any dependent api (sans telegram) is down.
 
+Lot availability data provided by LTA are around town, harbourfront and jurong area
+
 ## Develop locally
 clone locally, then run `npm install`
 
