@@ -5,6 +5,8 @@ var apiKeys = JSON.parse(fs.readFileSync('apiKeys.json', 'utf8'))
 var lotModule = require('./lotAvailability.js')
 var rates = []
 initRates('formatted.csv')
+lotModule.getCarparkAvail()
+lotModule.startLoop()
 
 var TelegramBot = require('node-telegram-bot-api')
 var bot = new TelegramBot(apiKeys.telegramKey, { polling: true })
@@ -57,10 +59,12 @@ function getLocation (msg, n) {
     toSend += topn[i].rate.CarPark
     toSend += '</b>'
     if (topn[i].rate.Lot_Avail_ID !== '-') {
-      toSend += '\n<b>Lots Available: </b>\n'
+      toSend += '\n<b>Lots Available: </b>'
       // toSend += topn[i].rate.Lot_Avail_ID;
       // get lots avail here
-      toSend += '\n'
+      // console.log(topn[i])
+      var lotAvailStr = lotModule.getLotAvail(topn[i].rate.Lot_Avail_ID)
+      toSend += lotAvailStr
     }
     toSend += '\n<code>Weekdays: </code>\n'
     toSend += topn[i].rate.WeekDays_Rate_1
@@ -121,7 +125,7 @@ function initRates (filename) {
       // need to remove quotes from results
       json = json.map((each) => {
         var newStr = JSON.stringify(each)
-        return JSON.parse(newStr.replaceAll('\\\'', ''))
+        return JSON.parse(newStr.replaceAll('\\"', ''))
       })
       rates = json
       // console.log(rates[0]);
@@ -130,7 +134,7 @@ function initRates (filename) {
   c2j.parse(fileObj, parseCallback)
 }
 
-String.prototype.replaceAll = function (search, replacement) {
+String.prototype.replaceAll = function (search, replacement) { // eslint-disable-line
   var target = this
   return target.split(search).join(replacement)
 }
