@@ -96,10 +96,15 @@ function handleStart (msg) {
 }
 function handleInfo (msg) {
   var toSend = 'Sg-carparks-bots databanks updated at: \n'
-  toSend += '`30 July 2017`. \n \n'
-  toSend += 'Data of exactly *'
+  toSend += '`1st August 2017`. \n \n'
+  toSend += 'Data of exactly \n*'
   toSend += rates.length
-  toSend += '* carparks have been collated from mytransport.sg datamall. \n \n'
+  toSend += '* carpark `rates` and \n'
+
+  toSend += '*'
+  toSend += lotModule.carparksArrLen()
+  toSend += '* carparks\' `lot availibility` have been collated from mytransport.sg datamall. \n \n'
+
   toSend += 'Developed for public use by *Ten Zhi-Yang* \n\n'
   toSend += 'any bugs, missing carparks or suggestions? submit an issue or pull request on my [github!](https://github.com/Tzyinc/sg-carpark-bot)'
   bot.sendMessage(msg.chat.id, toSend, {parse_mode: 'Markdown'})

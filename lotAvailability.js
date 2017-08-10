@@ -56,8 +56,12 @@ function getLotAvail (reqID) {
   return totalLotsAvail
 }
 
+function getLotAvailabilityLen () {
+  return lotAvailabilityArr.length
+}
+
 module.exports = {
-  carparksArr: lotAvailabilityArr,
+  carparksArrLen: getLotAvailabilityLen,
   getCarparkAvail: getCarparkAvail,
   startLoop: startLoop,
   getLotAvail: getLotAvail
