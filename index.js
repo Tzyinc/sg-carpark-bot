@@ -55,9 +55,11 @@ function getLocation (msg, n) {
   toSend += n
   toSend += ' nearest carparks are: </b>\n'
   for (i = 0; i < topn.length; i++) {
-    toSend += '<b>'
+    toSend += '<a href="http://maps.google.com?q='
+    toSend += topn[i].rate.Location_Lat + ',' + topn[i].rate.Location_Lng
+    toSend += '">'
     toSend += topn[i].rate.CarPark
-    toSend += '</b>'
+    toSend += '</a>'
     if (topn[i].rate.Lot_Avail_ID !== '-') {
       toSend += '\n<b>Lots Available: </b>'
       // toSend += topn[i].rate.Lot_Avail_ID;
